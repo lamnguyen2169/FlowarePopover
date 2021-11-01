@@ -1502,6 +1502,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/FlowarePopover-Sample/Supporting-Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_CFLAGS = "-Wno-implicit-function-declaration";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.floware.FlowarePopover-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/FlowarePopover/Classes";
@@ -1520,6 +1521,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/FlowarePopover-Sample/Supporting-Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				OTHER_CFLAGS = "-Wno-implicit-function-declaration";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.floware.FlowarePopover-Sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/FlowarePopover/Classes";
