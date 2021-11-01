@@ -183,6 +183,10 @@
     return FLOViewPopover;
 }
 
+- (FLOPopoverStyle)popoverStyle {
+    return self.utils.popoverStyle;
+}
+
 - (BOOL)containsArrow {
     return (self.shouldShowArrow && (self.utils.positioningView == self.utils.positioningAnchorView) && !NSEqualSizes(self.arrowSize, NSZeroSize));
 }
@@ -641,7 +645,6 @@
         BOOL shouldClose = (floPopoverShouldCloseBlock) ? floPopoverShouldCloseBlock(self) : YES;
         
         if (shouldClose) {
-            self.closeEventReceived = NO;
             self.isClosing = YES;
             
             if (floPopoverWillCloseBlock) floPopoverWillCloseBlock(self);
@@ -666,6 +669,7 @@
         if ([self.popoverView isDescendantOf:[self.utils.presentedWindow contentView]] || ([self.utils.presentedWindow contentView] == nil) || [self.utils.contentView isDescendantOf:[self.popoverWindow contentView]]) {
             [self resetContentViewFrame:nil];
             
+            self.closeEventReceived = NO;
             self.localEvent = nil;
             self.utils = nil;
             

@@ -191,6 +191,10 @@
     return FLOWindowPopover;
 }
 
+- (FLOPopoverStyle)popoverStyle {
+    return self.utils.popoverStyle;
+}
+
 - (BOOL)containsArrow {
     return (self.shouldShowArrow && (self.utils.positioningView == self.utils.positioningAnchorView) && !NSEqualSizes(self.arrowSize, NSZeroSize));
 }
@@ -323,8 +327,8 @@
         CGFloat height = (NSHeight(contentViewFrame) <= NSHeight(presentedFrame)) ? NSHeight(presentedFrame) : NSHeight(contentViewFrame);
         CGFloat x = (width <= NSWidth(presentedFrame)) ? NSMinX(presentedFrame) : (NSMidX(presentedFrame) - width / 2);
         CGFloat y = (height <= NSHeight(presentedFrame)) ? NSMinY(presentedFrame) : (NSMidY(presentedFrame) - height / 2);
-        NSRect frame = NSMakeRect(x, y, width, height);
-        NSRect viewFrame = NSMakeRect((width - NSWidth(contentViewFrame)) / 2, (height - NSHeight(contentViewFrame)) / 2, NSWidth(contentViewFrame), NSHeight(contentViewFrame));
+        NSRect frame = NSIntegralRect(NSMakeRect(x, y, width, height));
+        NSRect viewFrame = NSIntegralRect(NSMakeRect((width - NSWidth(contentViewFrame)) / 2, (height - NSHeight(contentViewFrame)) / 2, NSWidth(contentViewFrame), NSHeight(contentViewFrame)));
         
         [contentView setSizeConstraints:viewFrame];
         [contentView setFrameSize:viewFrame.size];
@@ -778,7 +782,6 @@
         BOOL shouldClose = (floPopoverShouldCloseBlock) ? floPopoverShouldCloseBlock(self) : YES;
         
         if (shouldClose) {
-            self.closeEventReceived = NO;
             self.isClosing = YES;
             
             if (self.resignsFieldsOnClosing) {
@@ -826,6 +829,7 @@
         
         [self resetContentViewFrame:nil];
         
+        self.closeEventReceived = NO;
         self.localEvent = nil;
         self.utils = nil;
         
@@ -998,6 +1002,7 @@
         [utils calculateTransitionFrame:&transitionFrame fromFrame:fromFrame toFrame:toFrame animationType:utils.animationType forwarding:this.animatedForwarding showing:showing];
         
         [backgroundView removeConstraints];
+        [backgroundView setSizeConstraints:frame];
         [popoverWindow setHasShadow:NO];
         [popoverWindow setAlphaValue:1.0];
         [this updateFrame:transitionFrame];

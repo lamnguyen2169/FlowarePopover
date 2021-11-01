@@ -80,6 +80,10 @@
     return _type;
 }
 
+- (FLOPopoverStyle)popoverStyle {
+    return _popover.popoverStyle;
+}
+
 - (NSRect)frame {
     return [_popover frame];
 }
