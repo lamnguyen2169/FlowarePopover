@@ -60,12 +60,14 @@
         }
     }
     
-    constraints = [self constraints];
-    
-    for (NSLayoutConstraint *constraint in constraints) {
-        if ((constraint.firstItem == self) || (constraint.secondItem == nil)) {
-            if (constraint.firstAttribute == constraintAttribute) {
-                return constraint;
+    if ((constraintAttribute == NSLayoutAttributeWidth) || (constraintAttribute == NSLayoutAttributeHeight)) {
+        constraints = [self constraints];
+        
+        for (NSLayoutConstraint *constraint in constraints) {
+            if ((constraint.firstItem == self) && (constraint.secondItem == nil)) {
+                if (constraint.firstAttribute == constraintAttribute) {
+                    return constraint;
+                }
             }
         }
     }
@@ -92,19 +94,24 @@
     }
     
     [removedConstraints removeAllObjects];
-    constraints = [self constraints];
     
-    for (NSLayoutConstraint *constraint in constraints) {
-        if ((constraint.firstItem == self) || (constraint.secondItem == nil)) {
-            if (constraint.firstAttribute == constraintAttribute) {
-                [removedConstraints addObject:constraint];
+    if ((constraintAttribute == NSLayoutAttributeWidth) || (constraintAttribute == NSLayoutAttributeHeight)) {
+        constraints = [self constraints];
+        
+        for (NSLayoutConstraint *constraint in constraints) {
+            if ((constraint.firstItem == self) && (constraint.secondItem == nil)) {
+                if (constraint.firstAttribute == constraintAttribute) {
+                    [removedConstraints addObject:constraint];
+                }
             }
         }
-    }
-    
-    for (NSLayoutConstraint *constraint in removedConstraints) {
-        [constraint setActive:NO];
-        [self removeConstraint:constraint];
+        
+        for (NSLayoutConstraint *constraint in removedConstraints) {
+            [constraint setActive:NO];
+            [self removeConstraint:constraint];
+        }
+        
+        [removedConstraints removeAllObjects];
     }
 }
 
@@ -192,6 +199,8 @@
         [constraint setActive:NO];
         [self removeConstraint:constraint];
     }
+    
+    [removedConstraints removeAllObjects];
 }
 
 - (void)addAutoResize:(BOOL)isAutoResize toParent:(NSView *)parentView {

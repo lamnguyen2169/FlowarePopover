@@ -42,6 +42,7 @@
 @property (nonatomic, strong, readonly) NSView *contentView;
 @property (nonatomic, strong, readonly) NSViewController *contentViewController;
 @property (nonatomic, assign, readonly) FLOPopoverType type;
+@property (nonatomic, assign, readonly) FLOPopoverStyle popoverStyle;
 @property (nonatomic, assign, readonly) NSRect frame;
 @property (nonatomic, assign, readonly, getter = isShown) BOOL shown;
 /**

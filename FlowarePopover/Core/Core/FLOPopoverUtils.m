@@ -34,6 +34,7 @@
     BOOL _forceInScreen;
     BOOL _windowLiveResized;
     BOOL _isScrolling;
+    BOOL _closeEventReceived;
     
     NSTimer *_closeTimer;
     
@@ -61,8 +62,6 @@
 
 - (instancetype)initWithPopover:(id<FLOPopoverProtocols>)popover {
     if (self = [super init]) {
-        _mainWindow = [[[NSApplication sharedApplication] windows] firstObject];
-        
         _popover = popover;
         
         _userInteractionEnable = YES;
@@ -83,6 +82,7 @@
         _forceInScreen = NO;
         _windowLiveResized = NO;
         _isScrolling = NO;
+        _closeEventReceived = NO;
     }
     
     return self;
@@ -119,11 +119,15 @@
 #pragma mark - Getter/Setter
 
 - (NSWindow *)mainWindow {
+    if (_mainWindow == nil) {
+        _mainWindow = [self getMainWindow];
+    }
+    
     return _mainWindow;
 }
 
 - (BOOL)isCloseEventReceived {
-    return (_closeTimer != nil);
+    return (_closeEventReceived || (_closeTimer != nil));
 }
 
 - (NSRectEdge)preferredEdge {
@@ -191,6 +195,19 @@
 }
 
 #pragma mark - Local methods
+
+- (NSWindow *)getMainWindow
+{
+    NSArray<NSWindow *> *windows = [[NSApplication sharedApplication] windows];
+    
+    for (NSWindow *window in windows) {
+        if ([window isMainWindow]) {
+            return window;
+        }
+    }
+    
+    return nil;
+}
 
 - (NSRect)screenVisibleFrame {
     return [[self.mainWindow screen] visibleFrame];
@@ -1791,6 +1808,7 @@
     if (![notification.name isEqualToString:NSApplicationDidResignActiveNotification]) return;
     if (_popover == nil) return;
     
+    _closeEventReceived = YES;
     [_popover close];
 }
 

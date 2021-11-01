@@ -20,6 +20,7 @@
 @property (nonatomic, assign, readonly) NSRect frame;
 @property (nonatomic, assign, readonly, getter = isShown) BOOL shown;
 @property (nonatomic, assign, readonly) FLOPopoverType type;
+@property (nonatomic, assign, readonly) FLOPopoverStyle popoverStyle;
 @property (nonatomic, assign, readonly) BOOL containsArrow;
 
 /// Determine whether the popover can be interacted.
