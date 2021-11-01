@@ -61,7 +61,7 @@
 /// FLOPopover popup
 /// or
 /// contentSplitView in workspace.
-#define DEBUGGER_CONSTANT_USING_SPLIT_VIEW_IN_WORKSPACE
+//#define DEBUGGER_CONSTANT_USING_SPLIT_VIEW_IN_WORKSPACE
 
 ///
 /// Entitlements Identifiers

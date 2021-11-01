@@ -905,7 +905,7 @@
 - (void)viewOpensGeneralView
 {
 #ifndef DEBUGGER_CONSTANT_USING_SPLIT_VIEW_IN_WORKSPACE
-    [self showGeneralPopupAtView:self.btnGeneral option:PopoverGeneralTypeTechnologies];
+    [self showGeneralPopupAtView:self.btnGeneral option:PopoverGeneralTypeComics];
 #else
     [self showViewInWorkspaceWithType:WorkspaceViewTypeComics];
 #endif
